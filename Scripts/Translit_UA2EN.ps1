@@ -39,7 +39,7 @@ function UA2EN {
     $t.'Ь' = "";	 $t.'ь' = ""
     $t.'Ю' = "Yu";	 $t.'ю' = "іu"
     $t.'Я' = "Ya";	 $t.'я' = "ia"
-    $t."’" = ""#;     $t.' ' = " " # Пробел
+    $t."’" = ""#;    $t.' ' = " " # Пробел
 
     foreach ($CHR in $inCHR = $inString.ToCharArray()) {
         if ($null -ne $t["$CHR"])
