@@ -1,62 +1,54 @@
-function translit {
-    param (
-        [Parameter(Mandatory = $true)]
-        [String]$inString
+function UA2EN {
+    param(
+        [Parameter(Mandatory = $true)][string]$inString
     )
-    $ua2en = [Ordered]@{
-        [char]'‡' = "a";	[char]'¿' = "A";
-        [char]'·' = "b";	[char]'¡' = "B";
-        [char]'‚' = "v";	[char]'¬' = "V";
-        [char]'„' = "h";	[char]'√' = "H";
-        [char]'¥' = "g";	[char]'•' = "G";
-        [char]'‰' = "d";	[char]'ƒ' = "D";
-        [char]'Â' = "e";	[char]'≈' = "E";
-        [char]'∫' = "ie";	[char]'™' = "Ye";
-        [char]'Ê' = "zh";	[char]'∆' = "Zh";
-        [char]'Á' = "z";	[char]'«' = "Z";
-        [char]'Ë' = "y";	[char]'»' = "Y";
-        [char]'≥' = "i";	[char]'≤' = "I";
-        [char]'ø' = "i";	[char]'Ø' = "Yi";
-        [char]'È' = "i";	[char]'…' = "Y";
-        [char]'Í' = "k";	[char]' ' = "K";
-        [char]'Î' = "l";	[char]'À' = "L";
-        [char]'Ï' = "m";	[char]'Ã' = "M";
-        [char]'Ì' = "n";	[char]'Õ' = "N";
-        [char]'Ó' = "o";	[char]'Œ' = "O";
-        [char]'Ô' = "p";	[char]'œ' = "P";
-        [char]'' = "r";	[char]'–' = "R";
-        [char]'Ò' = "s";	[char]'—' = "S";
-        [char]'Ú' = "t";	[char]'“' = "T";
-        [char]'Û' = "u";	[char]'”' = "U";
-        [char]'Ù' = "f";	[char]'‘' = "F";
-        [char]'ı' = "kh";	[char]'’' = "Kh";
-        [char]'ˆ' = "ts";	[char]'÷' = "Ts";
-        [char]'˜' = "ch";	[char]'◊' = "Ch";
-        [char]'¯' = "sh";	[char]'ÿ' = "Sh";
-        [char]'˘' = "shch";	[char]'Ÿ' = "Shch";
-        [char]'¸' = ""; [char]'‹' = "";
-        [char]'˛' = "iu";	[char]'ﬁ' = "Yu";
-        [char]'ˇ' = "ia";	[char]'ﬂ' = "Ya";
-        [char]' ' = " "
+    $tText = ""
+    #–°–æ–∑–¥–∞—ë–º —Ö–µ—à-—Ç–∞–±–ª–∏—Ü—É —Å–æ–æ—Ç–≤–µ—Ç—Å—Ç–≤–∏—è —Å–∏–º–≤–æ–ª–æ–≤
+    $t = New-Object system.collections.hashtable
+
+    $t.'–ê' = "A";    $t.'–∞' = "–∞"
+    $t.'–ë' = "B";    $t.'–±' = "b"
+    $t.'–í' = "V";    $t.'–≤' = "v"
+    $t.'–ì' = "H";    $t.'–≥' = "h"
+    $t.'“ê' = "G";	 $t.'“ë' = "g"
+    $t.'–î' = "D";	 $t.'–¥' = "d"
+    $t.'–ï' = "E";	 $t.'–µ' = "–µ"
+    $t.'–Ñ' = "Ye";	 $t.'—î' = "ie"
+    $t.'–ñ' = "Zh";	 $t.'–∂' = "zh"
+    $t.'–ó' = "Z";	 $t.'–∑' = "z"
+    $t.'–ò' = "Y";	 $t.'–∏' = "y"
+    $t.'–Ü' = "I";	 $t.'—ñ' = "i"
+    $t.'–á' = "Yi";	 $t.'—ó' = "i"
+    $t.'–ô' = "Y";	 $t.'–π' = "i"
+    $t.'–ö' = "K";	 $t.'–∫' = "k"
+    $t.'–õ' = "L";	 $t.'–ª' = "l"
+    $t.'–ú' = "M";	 $t.'–º' = "m"
+    $t.'–ù' = "N";	 $t.'–Ω' = "n"
+    $t.'–û' = "O";	 $t.'–æ' = "o"
+    $t.'–ü' = "P";	 $t.'–ø' = "p"
+    $t.'–†' = "R";	 $t.'—Ä' = "r"
+    $t.'–°' = "S";	 $t.'—Å' = "s"
+    $t.'–¢' = "T";	 $t.'—Ç' = "t"
+    $t.'–£' = "U";	 $t.'—É' = "u"
+    $t.'–§' = "F";	 $t.'—Ñ' = "f"
+    $t.'–•' = "Kh";	 $t.'—Ö' = "kh"
+    $t.'–¶' = "Ts";	 $t.'—Ü' = "ts"
+    $t.'–ß' = "Ch";	 $t.'—á' = "ch"
+    $t.'–®' = "Sh";	 $t.'—à' = "sh"
+    $t.'–©' = "Shch"; $t.'—â' = "shch"
+    $t.'–¨' = "";	 $t.'—å' = ""
+    $t.'–Æ' = "Yu";	 $t.'—é' = "—ñu"
+    $t.'–Ø' = "Ya";	 $t.'—è' = "ia"
+    $t."‚Äô" = ""#;     $t.' ' = " " # –ü—Ä–æ–±–µ–ª
+
+    foreach ($CHR in $inCHR = $inString.ToCharArray()) {
+        if ($null -ne $t["$CHR"])
+            { $tText += $t["$CHR"] }
+        else
+            { $tText += "$CHR" }
     }
-
-    $inChars = $inString.ToCharArray()
-
-    for ($i = 0; $i -lt $inChars.Count; $i++) {
-
-        if ($inChars[$i] -eq 'Á' -and $inChars[$i + 1] -eq '„' ) {
-            $outChars += "zgh"
-
-        }
-        else {
-            $outChars += $ua2en[$inChars[$i]]
-        }
-    }
-
-    $outChars = $outChars -replace ('hh', 'h')
-    return (Get-Culture).TextInfo.ToTitleCase($outChars)
+    return $tText
 }
-
-
-
-translit "ﬁÍÂ‚Ë˜ √ÂÌÌ‡‰≥È"
+# Test
+Clear-Host
+UA2EN "–ô–æ—Å–∏–ø—ñ–≤–∫–∞ –û–ª–µ–∫—Å—ñ–π –Ñ–Ω–∞–∫—ñ—î–≤–µ –ö–æ—Ä–æ–ø‚Äô—î –Ø–≥–æ—Ç–∏–Ω –ö–æ—Å—Ç—è–Ω—Ç–∏–Ω Asdfg 1234"
